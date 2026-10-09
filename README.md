@@ -1,12 +1,35 @@
-This is my implementation of a real-estate AI agent for NYC! 
+# HomeMatch: AI Real Estate Agent
 
-Install the libraries in the requirements.txt file. Then open HomeMatch.ipynb and simply follow along. Here are the steps followed in the notebook.
+An AI agent that recommends apartments and houses based on a user's preferences. It generates realistic listings with an LLM, stores them in a Chroma vector database, interviews the user about what they are looking for, and returns personalized recommendations.
 
-Steps: 
+## How it works
 
-    1- We're going to generate realistic apartment listings using an LLM. 
-    2- We're going to create a database of listings. The listings are also saved in a Listings.txt file
-    3- We're going to ask user's questions to capture their preferences for what kind of apartments they're hoping to find. 
-    4- We're going to summarize the user's questions and the answer to create a query vector that describes the user's preference. 
-    5- We're going to index our database using the query embedding and find the top 5 listing that match the user's preference. 
-    6- Finally, we're going to augment the description of the apartment with the user's preference and create personalized descriptions of the apartment. 
+1. Generate realistic apartment listings with an LLM and save them to `Listings.txt`.
+2. Load the listings into a Chroma vector database with OpenAI embeddings.
+3. Capture the user's preferences: either through LLM-generated follow-up questions or a manual Q&A list.
+4. Summarize the conversation into a query describing the user's preferences.
+5. Retrieve the top 5 semantically similar listings from the database.
+6. Rewrite each listing description to emphasize how it matches the user's preferences.
+
+## Repo structure
+
+- `HomeMatch.ipynb` - the full walkthrough, from listing generation to personalized recommendations.
+- `Listings.txt` - pre-generated sample listings so the notebook can run without regenerating them.
+- `requirements.txt` - Python dependencies.
+
+## How to run
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Set your OpenAI API key as an environment variable (required; the notebook raises a clear error if it is missing):
+   ```
+   export OPENAI_API_KEY="your-key-here"
+   ```
+   If you use an OpenAI-compatible proxy instead of the official API, also set `OPENAI_API_BASE`.
+3. Open `HomeMatch.ipynb` and run the cells in order.
+
+## What you learn
+
+- Prompt engineering for structured text generation (listings with a fixed schema).
+- Storing and searching documents with a vector database (Chroma + OpenAI embeddings).
+- Building a simple preference-elicitation loop with LangChain.
+- Retrieval-augmented personalization: grounding LLM rewrites in real listing facts.
